@@ -1,118 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InfoRank - Racking Escolar</title>
-  <link rel="shortcut icon" href="logo my cepma/logo my cepma bp.png" type="image/x-icon">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #0f172a;
-      color: #f8fafc;
-      margin: 0;
-      padding: 20px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfoRank - Racking Escolar</title>
+<link rel="shortcut icon" href="logo my cepma/logo my cepma bp.png" type="image/x-icon">
 
-    h1 {
-      text-align: center;
-      color: #38bdf8;
-      margin-bottom: 20px;
-    }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0f172a;
+  color: #f8fafc;
+  margin: 0;
+  padding: 20px;
+}
 
-    .turmas-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
+h1 {
+  text-align: center;
+  color: #38bdf8;
+  margin-bottom: 20px;
+}
 
-    .turma-card {
-      background-color: #1e293b;
-      border-radius: 12px;
-      padding: 15px;
-      width: 300px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: transform 0.3s, background-color 0.3s;
-    }
+.turmas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
 
-    .turma-card:hover {
-      transform: scale(1.02);
-      background-color: #334155;
-    }
+.turma-card {
+  background-color: #1e293b;
+  border-radius: 12px;
+  padding: 15px;
+  width: 300px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
 
-    .turma-header {
-      font-weight: bold;
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      color: #38bdf8;
-    }
+.turma-header {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #38bdf8;
+}
 
-    .aluno-card {
-      background-color: #334155;
-      border-radius: 8px;
-      padding: 8px;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.aluno-card {
+  background-color: #334155;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
 
-    .aluno-card span {
-      font-weight: bold;
-    }
+.aluno-card span {
+  font-weight: bold;
+}
 
-    @media (max-width: 700px) {
-      .turmas-container {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
+@media (max-width: 700px) {
+  .turmas-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>
 </head>
+
 <body>
-  <h1>Racking Escolar - Usuários</h1>
 
-  <div class="turmas-container" id="turmas-container">
-    <!-- Turmas e alunos aparecerão aqui -->
-  </div>
+<h1>Racking Escolar - Usuários</h1>
 
-  <script>
-    // Pega os dados do localStorage
-    let turmas = JSON.parse(localStorage.getItem('turmas')) || [];
+<div class="turmas-container" id="turmas-container"></div>
 
-    const turmasContainer = document.getElementById('turmas-container');
+<script>
 
-    // Renderiza todas as turmas e alunos, ordenados por nota (ranking)
-    function renderRacking() {
-      turmasContainer.innerHTML = '';
+var turmas = JSON.parse(localStorage.getItem('turmas')) || [];
+var turmasContainer = document.getElementById('turmas-container');
 
-      turmas.forEach(turma => {
-        const turmaCard = document.createElement('div');
-        turmaCard.classList.add('turma-card');
+function renderRacking() {
 
-        // Ordena os alunos do maior para o menor
-        const alunosOrdenados = [...turma.alunos].sort((a,b) => b.nota - a.nota);
+  turmasContainer.innerHTML = '';
 
-        const alunosHtml = alunosOrdenados.map((aluno, index) => `
-          <div class="aluno-card">
-            <span>#${index+1} ${aluno.nome}</span>
-            <span>Nota: ${aluno.nota}</span>
-          </div>
-        `).join('');
+  for (var i = 0; i < turmas.length; i++) {
 
-        turmaCard.innerHTML = `
-          <div class="turma-header">${turma.nome}</div>
-          <div class="alunos-container">
-            ${alunosHtml}
-          </div>
-        `;
+    var turma = turmas[i];
 
-        turmasContainer.appendChild(turmaCard);
+    var turmaCard = document.createElement('div');
+    turmaCard.className = 'turma-card';
+
+    var turmaHeader = document.createElement('div');
+    turmaHeader.className = 'turma-header';
+    turmaHeader.innerText = turma.nome;
+
+    turmaCard.appendChild(turmaHeader);
+
+    var alunosContainer = document.createElement('div');
+
+    if (turma.alunos && turma.alunos.length > 0) {
+
+      // Ordena manualmente (maior nota primeiro)
+      turma.alunos.sort(function(a, b) {
+        return b.nota - a.nota;
       });
+
+      for (var j = 0; j < turma.alunos.length; j++) {
+
+        var aluno = turma.alunos[j];
+
+        var alunoCard = document.createElement('div');
+        alunoCard.className = 'aluno-card';
+
+        var spanNome = document.createElement('span');
+        spanNome.innerText = "#" + (j + 1) + " " + aluno.nome;
+
+        var spanNota = document.createElement('span');
+        spanNota.innerText = "Nota: " + aluno.nota;
+
+        alunoCard.appendChild(spanNome);
+        alunoCard.appendChild(spanNota);
+
+        alunosContainer.appendChild(alunoCard);
+      }
+
     }
 
-    renderRacking();
-  </script>
+    turmaCard.appendChild(alunosContainer);
+    turmasContainer.appendChild(turmaCard);
+  }
+}
+
+renderRacking();
+
+</script>
+
 </body>
 </html>

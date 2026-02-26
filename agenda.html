@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agendadento de actividades</title>
+<title>Agendamento de actividades</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 *{
@@ -14,15 +16,40 @@
 }
 
 body{
-  background: #0f172a;
+  background:#0f172a;
   min-height:100vh;
   padding:20px;
   color:white;
 }
 
+/* BOTÃO VOLTAR */
+.btn-voltar{
+  position:fixed;
+  top:20px;
+  left:20px;
+  background:#1e293b;
+  color:#60a5fa;
+  padding:10px 16px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:bold;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.4);
+  transition:0.3s;
+  z-index:1000;
+}
+
+.btn-voltar:hover{
+  background:#60a5fa;
+  color:#0f172a;
+}
+
 h1{
   text-align:center;
   margin-bottom:20px;
+  margin-top:60px;
 }
 
 .container{
@@ -55,11 +82,6 @@ button{
   color:white;
   border:none;
   cursor:pointer;
-  transition:0.2s;
-}
-
-button:hover{
-  transform:scale(1.03);
 }
 
 .actions{
@@ -112,213 +134,215 @@ button:hover{
   width:90%;
   max-width:350px;
   text-align:center;
-  animation:pop 0.3s ease;
-}
-
-@keyframes pop{
-  from{transform:scale(0.7);}
-  to{transform:scale(1);}
 }
 
 .stop-btn{
   background:#e53e3e;
-}
-
-/* RESPONSIVO */
-@media(max-width:480px){
-  .form,.filters,.card{
-    padding:15px;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<h1> 📅Agendamento de actividades </h1>
+<a href="index.html" class="btn-voltar">
+<i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+<h1>📅 Agendamento de actividades</h1>
 
 <div class="container">
 
 <div class="form">
-  <input type="text" id="title" placeholder="Nome da tarefa">
-  <textarea id="description" placeholder="Descrição (opcional)"></textarea>
-  <input type="datetime-local" id="datetime">
-  <input type="file" id="sound" accept="audio/*">
-  <button onclick="addTask()">Agendar</button>
+<input type="text" id="title" placeholder="Nome da tarefa">
+<textarea id="description" placeholder="Descrição (opcional)"></textarea>
+<input type="datetime-local" id="datetime">
+<input type="file" id="sound" accept="audio/*">
+<button onclick="addTask()">Agendar</button>
 </div>
 
 <div class="filters">
-  <input type="text" id="search" placeholder="🔍 Pesquisar..." oninput="renderTasks()">
-  <select id="filter" onchange="renderTasks()">
-    <option value="all">Todas</option>
-    <option value="pending">Pendentes</option>
-    <option value="done">Concluídas</option>
-  </select>
+<input type="text" id="search" placeholder="🔍 Pesquisar..." oninput="renderTasks()">
+<select id="filter" onchange="renderTasks()">
+<option value="all">Todas</option>
+<option value="pending">Pendentes</option>
+<option value="done">Concluídas</option>
+</select>
 </div>
 
 <div id="tasks"></div>
 </div>
 
-<!-- MODAL -->
 <div id="customAlert" class="custom-alert">
-  <div class="alert-box">
-    <h2 id="alertTitle"></h2>
-    <p id="alertDesc"></p>
-    <button onclick="closeAlert()">Fechar</button>
-    <button class="stop-btn" onclick="stopMusic()">🔇 Parar Música</button>
-  </div>
+<div class="alert-box">
+<h2 id="alertTitle"></h2>
+<p id="alertDesc"></p>
+<button onclick="closeAlert()">Fechar</button>
+<button class="stop-btn" onclick="stopMusic()">🔇 Parar Música</button>
+</div>
 </div>
 
 <script>
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-let currentAudio = null;
+var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+var currentAudio = null;
 
 if ("Notification" in window) {
-  Notification.requestPermission();
+Notification.requestPermission();
 }
 
 function saveTasks(){
-  localStorage.setItem("tasks",JSON.stringify(tasks));
+localStorage.setItem("tasks",JSON.stringify(tasks));
 }
 
 function addTask(){
-  const title=document.getElementById("title").value.trim();
-  const description=document.getElementById("description").value.trim();
-  const datetime=document.getElementById("datetime").value;
-  const soundInput=document.getElementById("sound");
+var title=document.getElementById("title").value.trim();
+var description=document.getElementById("description").value.trim();
+var datetime=document.getElementById("datetime").value;
+var soundInput=document.getElementById("sound");
 
-  if(!title || !datetime){
-    alert("Preenche nome e data!");
-    return;
-  }
+if(!title || !datetime){
+alert("Preenche nome e data!");
+return;
+}
 
-  let soundURL=null;
-  if(soundInput.files.length>0){
-    soundURL=URL.createObjectURL(soundInput.files[0]);
-  }
+var soundURL=null;
+if(soundInput.files.length>0){
+soundURL=URL.createObjectURL(soundInput.files[0]);
+}
 
-  tasks.push({
-    id:Date.now(),
-    title,
-    description,
-    datetime,
-    sound:soundURL,
-    done:false,
-    notified:false
-  });
+tasks.push({
+id:Date.now(),
+title:title,
+description:description,
+datetime:datetime,
+sound:soundURL,
+done:false,
+notified:false
+});
 
-  saveTasks();
-  renderTasks();
+saveTasks();
+renderTasks();
 
-  document.getElementById("title").value="";
-  document.getElementById("description").value="";
-  document.getElementById("datetime").value="";
-  document.getElementById("sound").value="";
+document.getElementById("title").value="";
+document.getElementById("description").value="";
+document.getElementById("datetime").value="";
+document.getElementById("sound").value="";
 }
 
 function renderTasks(){
-  const container=document.getElementById("tasks");
-  const search=document.getElementById("search").value.toLowerCase();
-  const filter=document.getElementById("filter").value;
+var container=document.getElementById("tasks");
+var search=document.getElementById("search").value.toLowerCase();
+var filter=document.getElementById("filter").value;
 
-  container.innerHTML="";
+container.innerHTML="";
 
-  tasks
-  .filter(t=>t.title.toLowerCase().includes(search))
-  .filter(t=>filter==="all"||(filter==="done"?t.done:!t.done))
-  .forEach(task=>{
-    const card=document.createElement("div");
-    card.className="card"+(task.done?" done":"");
+for(var i=0;i<tasks.length;i++){
+var task=tasks[i];
 
-    card.innerHTML=`
-      <h3>${task.title}</h3>
-      ${task.description?`<p>${task.description}</p>`:""}
-      <small>⏰ ${new Date(task.datetime).toLocaleString()}</small>
-      <div class="countdown" id="countdown-${task.id}"></div>
-      <div class="actions">
-        <button class="done-btn" onclick="toggleDone(${task.id})">✔</button>
-        <button class="delete-btn" onclick="deleteTask(${task.id})">🗑</button>
-      </div>
-    `;
-    container.appendChild(card);
-  });
+if(!task.title.toLowerCase().includes(search)) continue;
+if(filter==="done" && !task.done) continue;
+if(filter==="pending" && task.done) continue;
+
+var card=document.createElement("div");
+card.className="card"+(task.done?" done":"");
+
+var html="<h3>"+task.title+"</h3>";
+
+if(task.description){
+html+="<p>"+task.description+"</p>";
+}
+
+html+="<small>⏰ "+new Date(task.datetime).toLocaleString()+"</small>";
+html+="<div class='countdown' id='countdown-"+task.id+"'></div>";
+html+="<div class='actions'>";
+html+="<button class='done-btn' onclick='toggleDone("+task.id+")'>✔</button>";
+html+="<button class='delete-btn' onclick='deleteTask("+task.id+")'>🗑</button>";
+html+="</div>";
+
+card.innerHTML=html;
+container.appendChild(card);
+}
 }
 
 function updateCountdowns(){
-  const now=Date.now();
+var now=Date.now();
 
-  tasks.forEach(task=>{
-    const el=document.getElementById(`countdown-${task.id}`);
-    if(!el)return;
+for(var i=0;i<tasks.length;i++){
+var task=tasks[i];
+var el=document.getElementById("countdown-"+task.id);
+if(!el) continue;
 
-    const diff=new Date(task.datetime).getTime()-now;
+var diff=new Date(task.datetime).getTime()-now;
 
-    if(diff<=0){
-      el.innerText="⏰ Tempo esgotado!";
-      el.classList.add("urgent");
+if(diff<=0){
+el.innerText="⏰ Tempo esgotado!";
+el.classList.add("urgent");
 
-      if(!task.notified){
-        task.notified=true;
-        saveTasks();
+if(!task.notified){
+task.notified=true;
+saveTasks();
 
-        // 🔔 Notificação navegador
-        if(Notification.permission==="granted"){
-          new Notification(task.title,{
-            body:task.description||"A tarefa chegou ao fim!"
-          });
-        }
+if(Notification.permission==="granted"){
+new Notification(task.title,{
+body:task.description || "A tarefa chegou ao fim!"
+});
+}
 
-        // 🎵 Música em loop
-        if(task.sound){
-          currentAudio=new Audio(task.sound);
-          currentAudio.loop=true;
-          currentAudio.play();
-        }
+if(task.sound){
+currentAudio=new Audio(task.sound);
+currentAudio.loop=true;
+currentAudio.play();
+}
 
-        showAlert("⏰ "+task.title,
-        task.description||"A tarefa chegou ao fim!");
-      }
-      return;
-    }
+showAlert("⏰ "+task.title, task.description || "A tarefa chegou ao fim!");
+}
+continue;
+}
 
-    const d=Math.floor(diff/(1000*60*60*24));
-    const h=Math.floor((diff/(1000*60*60))%24);
-    const m=Math.floor((diff/(1000*60))%60);
-    const s=Math.floor((diff/1000)%60);
+var d=Math.floor(diff/(1000*60*60*24));
+var h=Math.floor((diff/(1000*60*60))%24);
+var m=Math.floor((diff/(1000*60))%60);
+var s=Math.floor((diff/1000)%60);
 
-    el.innerText=`Faltam ${d}d ${h}h ${m}m ${s}s`;
-    if(diff<60000)el.classList.add("urgent");
-  });
+el.innerText="Faltam "+d+"d "+h+"h "+m+"m "+s+"s";
+
+if(diff<60000){
+el.classList.add("urgent");
+}
+}
 }
 
 function toggleDone(id){
-  const task=tasks.find(t=>t.id===id);
-  task.done=!task.done;
-  saveTasks();
-  renderTasks();
+for(var i=0;i<tasks.length;i++){
+if(tasks[i].id===id){
+tasks[i].done=!tasks[i].done;
+break;
+}
+}
+saveTasks();
+renderTasks();
 }
 
 function deleteTask(id){
-  tasks=tasks.filter(t=>t.id!==id);
-  saveTasks();
-  renderTasks();
+tasks=tasks.filter(function(t){ return t.id!==id; });
+saveTasks();
+renderTasks();
 }
 
 function showAlert(title,desc){
-  document.getElementById("alertTitle").innerText=title;
-  document.getElementById("alertDesc").innerText=desc;
-  document.getElementById("customAlert").classList.add("show");
+document.getElementById("alertTitle").innerText=title;
+document.getElementById("alertDesc").innerText=desc;
+document.getElementById("customAlert").classList.add("show");
 }
 
 function closeAlert(){
-  document.getElementById("customAlert").classList.remove("show");
+document.getElementById("customAlert").classList.remove("show");
 }
 
 function stopMusic(){
-  if(currentAudio){
-    currentAudio.pause();
-    currentAudio.currentTime=0;
-  }
+if(currentAudio){
+currentAudio.pause();
+currentAudio.currentTime=0;
+}
 }
 
 setInterval(updateCountdowns,1000);
