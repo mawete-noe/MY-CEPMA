@@ -293,7 +293,7 @@ async function responderPergunta(pergunta){
   clearInterval(animacao);
   barra.style.width="100%";
   const textoResumo=resumir(resultado.texto);
-  loading.innerHTML=`<strong>ws:</strong><br>${textoResumo}<div class="fonte">Fonte: <a href="${resultado.link}" target="_blank">${resultado.fonte}</a></div>`;
+  loading.innerHTML=`<strong>MYCEPMA Search:</strong><br>${textoResumo}<div class="fonte">Fonte: <a href="${resultado.link}" target="_blank">${resultado.fonte}</a></div>`;
   falar(textoResumo);
   localStorage.setItem("chat",mensagens.innerHTML);
 }
