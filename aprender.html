@@ -6,6 +6,9 @@
 <link rel="shortcut icon" href="logo my cepma/logo my cepma bp.png" type="image/x-icon">
 <title>My - CEPMA - Aprender</title>
 
+<!-- Ícones online -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
 :root{
   --primary:#4f46e5;
@@ -26,6 +29,31 @@ body{
   background:var(--bg);
   color:var(--text);
   text-align: center;
+}
+
+/* BOTÃO VOLTAR */
+.btn-voltar{
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: #111827;
+  color: aqua;
+  padding: 10px 15px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.btn-voltar:hover{
+  background: aqua;
+  color: #0f172a;
+  transform: translateY(-2px);
 }
 
 header{
@@ -75,8 +103,7 @@ h2{
   transform:translateY(-4px);
 }
 
-.card iframe,
-.card video{
+.card iframe{
   width:100%;
   border-radius:10px;
 }
@@ -129,17 +156,28 @@ h2{
 .bottom-nav button:hover{
   background:#eef2ff;
 }
-/* Responsividade - tablet */
+
+/* Tablet */
 @media (min-width: 768px) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Responsividade - desktop */
+/* Desktop */
 @media (min-width: 1024px) {
   .cards {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile ajuste botão */
+@media(max-width:480px){
+  .btn-voltar{
+    top:10px;
+    left:10px;
+    padding:8px 12px;
+    font-size:14px;
   }
 }
 
@@ -152,10 +190,17 @@ h2{
 
 <body>
 
+<!-- BOTÃO VOLTAR -->
+<a href="index.html" class="btn-voltar">
+  <i class="fas fa-arrow-left"></i>
+  Voltar
+</a>
+
 <header>
   <span style="color: aqua;">MY</span> - CEPMA
-  <p style="font-size: 16px;font-weight: 100; color: gray;">Aprende assistindo nossos videos educativos</p>
-
+  <p style="font-size: 16px;font-weight: 100; color: gray;">
+    Aprende assistindo nossos videos educativos
+  </p>
 </header>
 
 <main>
