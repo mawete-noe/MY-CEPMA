@@ -200,7 +200,7 @@ a {
 </head>
 <body>
 <div class="chat">
-<h2>🤖 Wikipedia  Search</h2>
+<h2>🤖 MYCEPMA Search</h2>
 <div id="mensagens"></div>
 <div class="input-area">
 <input id="pergunta" placeholder="Pergunte qualquer coisa..." />
@@ -293,7 +293,7 @@ async function responderPergunta(pergunta){
   clearInterval(animacao);
   barra.style.width="100%";
   const textoResumo=resumir(resultado.texto);
-  loading.innerHTML=`<strong>LumiIA:</strong><br>${textoResumo}<div class="fonte">Fonte: <a href="${resultado.link}" target="_blank">${resultado.fonte}</a></div>`;
+  loading.innerHTML=`<strong>ws:</strong><br>${textoResumo}<div class="fonte">Fonte: <a href="${resultado.link}" target="_blank">${resultado.fonte}</a></div>`;
   falar(textoResumo);
   localStorage.setItem("chat",mensagens.innerHTML);
 }
