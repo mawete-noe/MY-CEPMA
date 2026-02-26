@@ -1,0 +1,313 @@
+<!DOCTYPE html> 
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InfoRank - ADM & Racking</title>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #38bdf8;
+      margin-bottom: 20px;
+    }
+
+    .login-container {
+      max-width: 350px;
+      margin: 100px auto;
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .login-container input {
+      width: 90%;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .login-container button {
+      padding: 8px 15px;
+      border-radius: 6px;
+      border: none;
+      background-color: #38bdf8;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-container button:hover {
+      background-color: #0ea5e9;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .controls button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      background-color: #38bdf8;
+      color: #000;
+      transition: background-color 0.3s;
+    }
+
+    .controls button:hover {
+      background-color: #0ea5e9;
+    }
+
+    .turmas-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .turma-card {
+      background-color: #1e293b;
+      border-radius: 12px;
+      padding: 15px;
+      width: 300px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .turma-card:hover {
+      transform: scale(1.02);
+      background-color: #334155;
+    }
+
+    .turma-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .aluno-card {
+      background-color: #334155;
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .aluno-card button {
+      background-color: #38bdf8;
+      border: none;
+      padding: 5px 8px;
+      margin-left: 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+    }
+
+    #painel {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-container" id="login">
+    <h2>Login ADM</h2>
+    <input type="text" id="nome" placeholder="Nome">
+    <input type="password" id="senha" placeholder="Senha">
+    <input type="number" id="numero" placeholder="Número">
+    <br>
+    <button onclick="fazerLogin()">Entrar</button>
+    <p id="erro" style="color:red;"></p>
+  </div>
+
+  <!-- PAINEL -->
+  <div id="painel">
+    <h1>Painel ADM - Racking Escolar</h1>
+
+    <div class="controls">
+      <button id="add-turma">➕ Adicionar Turma</button>
+    </div>
+
+    <div class="turmas-container" id="turmas-container"></div>
+  </div>
+<script>
+  const LOGIN_CORRETO = {
+    nome: "@MYCEPMafonso",
+    senha: "qwertyuiop",
+    numero: "10101010",
+  };
+
+  const MAX_TENTATIVAS = 3;
+  const TEMPO_BLOQUEIO = 60000; // 1 minuto
+
+  function verificarBloqueio() {
+    const bloqueioAte = localStorage.getItem("bloqueioAte");
+    if (bloqueioAte && Date.now() < parseInt(bloqueioAte)) {
+      const tempoRestante = Math.ceil((bloqueioAte - Date.now()) / 1000);
+      document.getElementById("erro").innerText =
+        `Sistema bloqueado. Tente novamente em ${tempoRestante}s`;
+      return true;
+    }
+    return false;
+  }
+
+  function fazerLogin() {
+    if (verificarBloqueio()) return;
+
+    const nome = document.getElementById('nome').value.trim();
+    const senha = document.getElementById('senha').value.trim();
+    const numero = document.getElementById('numero').value.trim();
+
+    let tentativas = parseInt(localStorage.getItem("tentativas")) || 0;
+
+    if (
+      nome === LOGIN_CORRETO.nome &&
+      senha === LOGIN_CORRETO.senha &&
+      numero === LOGIN_CORRETO.numero
+    ) {
+      sessionStorage.setItem("logado", "true");
+      localStorage.removeItem("tentativas");
+      localStorage.removeItem("bloqueioAte");
+
+      document.getElementById('login').style.display = "none";
+      document.getElementById('painel').style.display = "block";
+    } else {
+      tentativas++;
+      localStorage.setItem("tentativas", tentativas);
+
+      if (tentativas >= MAX_TENTATIVAS) {
+        const bloqueioAte = Date.now() + TEMPO_BLOQUEIO;
+        localStorage.setItem("bloqueioAte", bloqueioAte);
+        document.getElementById("erro").innerText =
+          "Muitas tentativas erradas! Sistema bloqueado por 1 minuto.";
+      } else {
+        document.getElementById("erro").innerText =
+          `Dados incorretos! Tentativa ${tentativas}/${MAX_TENTATIVAS}`;
+      }
+    }
+  }
+
+  // Se já estiver logado na sessão
+  if (sessionStorage.getItem("logado") === "true") {
+    document.getElementById('login').style.display = "none";
+    document.getElementById('painel').style.display = "block";
+  } else {
+    verificarBloqueio();
+  }
+
+  /* ======================
+     RESTO DO SISTEMA
+  ====================== */
+
+  let turmas = JSON.parse(localStorage.getItem('turmas')) || [];
+  const turmasContainer = document.getElementById('turmas-container');
+  const addTurmaBtn = document.getElementById('add-turma');
+
+  function salvarLocalStorage() {
+    localStorage.setItem('turmas', JSON.stringify(turmas));
+  }
+
+  function renderTurmas() {
+    turmasContainer.innerHTML = '';
+    turmas.forEach((turma, tIndex) => {
+      const turmaCard = document.createElement('div');
+      turmaCard.classList.add('turma-card');
+
+      turmaCard.innerHTML = `
+        <div class="turma-header">
+          <h2>${turma.nome}</h2>
+          <button onclick="deletarTurma(${tIndex})">🗑️</button>
+        </div>
+        <div class="alunos-container"></div>
+        <button onclick="adicionarAluno(${tIndex})">➕ Adicionar Aluno</button>
+      `;
+
+      const alunosContainer = turmaCard.querySelector('.alunos-container');
+
+      turma.alunos.forEach((aluno, aIndex) => {
+        const alunoCard = document.createElement('div');
+        alunoCard.classList.add('aluno-card');
+        alunoCard.innerHTML = `
+          <span>${aluno.nome} - Nota: ${aluno.nota}</span>
+          <div>
+            <button onclick="editarNota(${tIndex}, ${aIndex})">✏️</button>
+            <button onclick="deletarAluno(${tIndex}, ${aIndex})">🗑️</button>
+          </div>
+        `;
+        alunosContainer.appendChild(alunoCard);
+      });
+
+      turmasContainer.appendChild(turmaCard);
+    });
+  }
+
+  addTurmaBtn.addEventListener('click', () => {
+    const nome = prompt('Digite o nome da nova turma:');
+    if(nome){
+      turmas.push({nome: nome, alunos: []});
+      salvarLocalStorage();
+      renderTurmas();
+    }
+  });
+
+  function deletarTurma(index) {
+    if(confirm('Deseja realmente deletar esta turma e todos os alunos?')){
+      turmas.splice(index,1);
+      salvarLocalStorage();
+      renderTurmas();
+    }
+  }
+
+  function adicionarAluno(tIndex) {
+    const nome = prompt('Nome do aluno:');
+    const nota = prompt('Média Final do aluno:');
+    if(nome && nota){
+      turmas[tIndex].alunos.push({nome: nome, nota: parseFloat(nota)});
+      salvarLocalStorage();
+      renderTurmas();
+    }
+  }
+
+  function editarNota(tIndex, aIndex){
+    const novaNota = prompt('Digite a nova nota:');
+    if(novaNota){
+      turmas[tIndex].alunos[aIndex].nota = parseFloat(novaNota);
+      salvarLocalStorage();
+      renderTurmas();
+    }
+  }
+
+  function deletarAluno(tIndex, aIndex){
+    if(confirm('Deseja realmente deletar este aluno?')){
+      turmas[tIndex].alunos.splice(aIndex,1);
+      salvarLocalStorage();
+      renderTurmas();
+    }
+  }
+
+  renderTurmas();
+</script>
+
+</body>
+</html>

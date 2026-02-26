@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InfoRank - ADM & Racking</title>
+  <link rel="shortcut icon" href="logo my cepma/logo my cepma bp.png" type="image/x-icon">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #38bdf8;
+      margin-bottom: 20px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .controls button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      background-color: #38bdf8;
+      color: #000;
+      transition: background-color 0.3s;
+    }
+
+    .controls button:hover {
+      background-color: #0ea5e9;
+    }
+
+    .turmas-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .turma-card {
+      background-color: #1e293b;
+      border-radius: 12px;
+      padding: 15px;
+      width: 300px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .turma-card:hover {
+      transform: scale(1.02);
+      background-color: #334155;
+    }
+
+    .turma-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .aluno-card {
+      background-color: #334155;
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .aluno-card button {
+      background-color: #38bdf8;
+      border: none;
+      padding: 5px 8px;
+      margin-left: 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    #add-aluno{
+      background-color: aqua;
+      border-radius: 6px;
+      border: none;
+      padding: 5px;
+    }
+    .aluno-card button:hover {
+      background-color: #0ea5e9;
+    }
+
+    @media (max-width: 700px) {
+      .turmas-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Painel ADM - Racking Escolar</h1>
+
+  <div class="controls">
+    <button id="add-turma">➕ Adicionar Turma</button>
+  </div>
+
+  <div class="turmas-container" id="turmas-container">
+    <!-- Turmas e alunos aparecerão aqui -->
+  </div>
+
+  <script>
+    // Recupera dados do localStorage ou inicializa vazio
+    let turmas = JSON.parse(localStorage.getItem('turmas')) || [];
+
+    const turmasContainer = document.getElementById('turmas-container');
+    const addTurmaBtn = document.getElementById('add-turma');
+
+    function salvarLocalStorage() {
+      localStorage.setItem('turmas', JSON.stringify(turmas));
+    }
+
+    // Renderiza todas as turmas e alunos
+    function renderTurmas() {
+      turmasContainer.innerHTML = '';
+      turmas.forEach((turma, tIndex) => {
+        const turmaCard = document.createElement('div');
+        turmaCard.classList.add('turma-card');
+
+        turmaCard.innerHTML = `
+          <div class="turma-header">
+            <h2>${turma.nome}</h2>
+            <button onclick="deletarTurma(${tIndex})">🗑️</button>
+          </div>
+          <div class="alunos-container"></div>
+          <button onclick="adicionarAluno(${tIndex})" id="add-aluno">➕ Adicionar Aluno</button>
+        `;
+
+        const alunosContainer = turmaCard.querySelector('.alunos-container');
+
+        turma.alunos.forEach((aluno, aIndex) => {
+          const alunoCard = document.createElement('div');
+          alunoCard.classList.add('aluno-card');
+          alunoCard.innerHTML = `
+            <span>${aluno.nome} - Nota: ${aluno.nota}</span>
+            <div>
+              <button onclick="editarNota(${tIndex}, ${aIndex})">✏️</button>
+              <button onclick="deletarAluno(${tIndex}, ${aIndex})">🗑️</button>
+            </div>
+          `;
+          alunosContainer.appendChild(alunoCard);
+        });
+
+        turmasContainer.appendChild(turmaCard);
+      });
+    }
+
+    // Adicionar turma
+    addTurmaBtn.addEventListener('click', () => {
+      const nome = prompt('Digite o nome da nova turma:');
+      if(nome){
+        turmas.push({nome: nome, alunos: []});
+        salvarLocalStorage();
+        renderTurmas();
+      }
+    });
+
+    // Deletar turma
+    function deletarTurma(index) {
+      if(confirm('Deseja realmente deletar esta turma e todos os alunos?')){
+        turmas.splice(index,1);
+        salvarLocalStorage();
+        renderTurmas();
+      }
+    }
+
+    // Adicionar aluno
+    function adicionarAluno(tIndex) {
+      const nome = prompt('Nome do aluno:');
+      const nota = prompt('Insira o Aproveitamento do aluno por percetagem:');
+      if(nome && nota){
+        turmas[tIndex].alunos.push({nome: nome, nota: parseFloat(nota)});
+        salvarLocalStorage();
+        renderTurmas();
+      }
+    }
+
+    // Editar nota
+    function editarNota(tIndex, aIndex){
+      const novaNota = prompt('Digite a nova nota:');
+      if(novaNota){
+        turmas[tIndex].alunos[aIndex].nota = parseFloat(novaNota);
+        salvarLocalStorage();
+        renderTurmas();
+      }
+    }
+
+    // Deletar aluno
+    function deletarAluno(tIndex, aIndex){
+      if(confirm('Deseja realmente deletar este aluno?')){
+        turmas[tIndex].alunos.splice(aIndex,1);
+        salvarLocalStorage();
+        renderTurmas();
+      }
+    }
+
+    // Inicializa renderização
+    renderTurmas();
+  </script>
+</body>
+</html>

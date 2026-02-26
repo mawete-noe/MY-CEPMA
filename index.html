@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>MY CEPMA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="shortcut icon" href="logo my cepma/logo my cepma bp.png" type="image/x-icon">
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #0f172a;
+
+}
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* Corpo */
+body {
+  background-color: #0f172a; /* fundo escuro tecnológico */
+  color: #f8fafc;           /* texto claro */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Cabeçalho */
+.header {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #38bdf8; /* azul vibrante */
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #94a3b8;
+}
+
+/* Container principal */
+.main-container {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+/* cor do logo*/
+.outracor{
+  color: antiquewhite;
+}
+
+/* Cada card */
+.card {
+  background-color: #1e293b; /* card escuro */
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+/* Hover nos cards */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Títulos dos cards */
+.card h2 {
+  font-size: 1.8rem;
+  color: #38bdf8;
+  margin-bottom: 1rem;
+}
+
+/* Descrição dos cards */
+.card p {
+  font-size: 1rem;
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+}
+
+/* Botões */
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #38bdf8;
+  color: #0f172a;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+  background-color: #0ea5e9;
+  transform: scale(1.05);
+}
+
+/* Footer definição do footer */
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #1e293b;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+/* Responsividade - tablet */
+@media (min-width: 768px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsividade - desktop */
+@media (min-width: 1024px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* HEADER */
+.topo {
+    background: #00000062;
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    position: sticky;
+    top: -1px;
+}
+
+/* LOGO */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 70px;
+}
+
+/* MENU 1 */
+.menu-principal {
+    display: flex;
+    gap: 15px;
+}
+
+.menu-principal a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu-principal button{
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+.menu-principal button:hover{
+    background-color: #0f737a;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 5px;
+}
+
+/* MENU 2 */
+.menu-secundario {
+    margin-top: 390px;
+    bottom: -1px;
+    position: fixed;
+    background: #000000;
+    padding: 30px;
+    text-align: center;
+    position: sticky;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    padding: 20px 0;
+}
+
+.menu-secundario a {
+    color: #000000;
+    margin: 0 10px;
+    text-decoration: none;
+}
+.menu-secundario button{
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+.menu-secundario button:hover{
+    background-color: #0f737a;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 5px;
+}
+
+/* CONTEÚDO */
+main {
+    font-family: "sans mc", cursive;
+    padding: 40px;
+    color: white;
+    text-align: center;
+    width: 100%;
+    
+
+}
+/* MOBILE */
+@media (max-width: 768px) {
+    .menu-principal {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+    }
+}
+/* Botão flutuante estilo Meta AI */
+    .fab {
+        position: fixed;
+        bottom: 100px;
+        right: 25px;
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #00f2fe, #4facfe);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        cursor: pointer;
+        box-shadow: 0 0 0 rgba(79,172,254, 0.7);
+        animation: pulse 2s infinite;
+        transition: transform 0.3s;
+        z-index: 999;
+    }
+
+    .fab:hover {
+        transform: scale(1.1);
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(79,172,254, 0.7);
+        }
+        70% {
+            box-shadow: 0 0 0 20px rgba(79,172,254, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(79,172,254, 0);
+        }
+    }
+
+    /* LOADING */
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  background: #020617;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.loading-logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  width: 220px;
+  height: 8px;
+  background: #1e293b;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#progress {
+  height: 100%;
+  width: 0%;
+  background: #f59e0b;
+  transition: width .3s;
+}
+
+</style>
+<body>
+<!-- LOADING -->
+<div id="loading-screen">
+  <img src="logo my cepma/logo my cepma bp.png" class="loading-logo" class="bounce" />
+  <div class="progress-bar">
+    <div id="progress"></div>
+  </div>
+  <p style="margin-top: 5px;">Carregando sistema <span>.</span><span>.</span><span>.</span></p>
+</div>
+ <header class="topo">
+    <div class="logo">
+        <img src="logo my cepma/logo my cepma bp.png" alt="Logo">
+        <span class="efeito"><strong><span style="color: #40e2e2;">MY</span> CEPMA</strong></span>
+    </div>
+
+    <!-- MENU 1 -->
+    <nav class="menu-principal">
+        <a href="agenda.html" > <button><img style="width: 40px;" src="logo my cepma/icon/agenda.png" alt=""></button></a>
+        <a href="sobre.html"> <button><img src="logo my cepma/icon/sobre.png" alt="sobre nós" width="40px"></button></a>
+    </nav>
+</header>
+
+  <!-- Cabeçalho -->
+  <header class="header">
+    <h1 >MY<span class="outracor">CEPMA</span></h1>
+    <p>Aprenda, jogue e veja seu ranking!</p>
+  </header>
+
+  <!-- Seção principal com opções -->
+  <main class="main-container">
+    <div class="cards">
+
+      <!-- Card Jogar -->
+      <div class="card">
+        <h2>🎮 Jogar</h2>
+        <p>Teste seus conhecimentos em informática!</p>
+        <a href="jogares.html" class="btn">Começar</a>
+      </div>
+
+      <!-- Card Aprender -->
+      <div class="card">
+        <h2><img src="logo my cepma/icon/aprender.png" width="30px"alt="home page"> Aprender</h2>
+        <p>Estude conteúdos, PDFs e vídeos relacionados às perguntas do quiz.</p>
+        <a href="aprender.html" class="btn">Aprender</a>
+      </div>
+
+      <!-- Card Ranking -->
+      <div class="card">
+        <h2><img src="logo my cepma/icon/racking.png" width="30px"alt="home page">Ranking</h2>
+        <p>Confira o ranking da sua turma e veja quem está no topo!</p>
+        <a href="js/user.html" class="btn">Ver Ranking</a>
+      </div>
+
+    </div>
+  </main>
+
+  <a href="LumiIA.html"><button class="fab" >🤖</button></a>
+
+
+<!-- MENU 2 -->
+<div class="menu-secundario">
+    <a href="#"><button> <img src="logo my cepma/icon/CYAN HOME.png" width="40px"alt="home page"></button></a>
+    <a href="chat.html"><button> <img src="logo my cepma/icon/chat f.png" width="50px" alt="chat"></button></a>
+    <a href="js/seg.html"><button><img src="logo my cepma/icon/level.png"width="60px" alt="estatistica"></button></a>
+    
+</div>
+<script>
+    /* ================= LOADING + PROGRESSO ================= */
+document.addEventListener("DOMContentLoaded", () => {
+    // Variáveis
+    let progress = 0;
+    const bar = document.getElementById("progress");
+    const loadingScreen = document.getElementById("loading-screen");
+    const app = document.getElementById("app");
+    const fabButton = document.querySelector('.fab');  // Seleciona o botão flutuante
+
+    // Verifica se o carregamento já foi feito anteriormente (armazenado no sessionStorage)
+    if (!sessionStorage.getItem('loadedOnce')) {
+        sessionStorage.setItem('loadedOnce', 'true');  // Marca que o carregamento foi feito
+
+        // Ocultar o botão flutuante até o carregamento terminar
+        fabButton.style.display = 'none'; 
+
+        // Inicia o progresso do carregamento
+        const interval = setInterval(() => {
+            progress += 10;
+            bar.style.width = progress + "%";
+
+            if (progress >= 100) {
+                clearInterval(interval);
+                loadingScreen.style.display = "none"; // Esconde o carregamento
+
+                // Exibe o botão flutuante depois de o carregamento terminar
+                fabButton.style.display = 'flex';
+            }
+        }, 200);
+    } else {
+        // Se já foi carregado uma vez, esconde a tela de carregamento e exibe o conteúdo
+        loadingScreen.style.display = "none";
+        fabButton.style.display = 'flex';  // Exibe o botão flutuante imediatamente
+    }
+});
+</script>
+</body>
+
+</html>

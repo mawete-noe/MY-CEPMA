@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MYCEPMA – Aprender Informática</title>
+<link rel="shortcut icon" href="logo my cepma/logo my cepma bp.png" type="image/x-icon">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+  margin: 0;
+}
+
+header {
+  text-align: center;
+  padding: 30px 10px;
+}
+
+header h1 {
+  color: #38bdf8;
+}
+
+.topics-menu {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.topics-menu button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #38bdf8;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.topics-menu button:hover {
+  background: #0ea5e9;
+}
+
+.content {
+  max-width: 1200px;
+  margin: auto;
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 12px;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.video-card {
+  background: #020617;
+  border-radius: 10px;
+  padding: 10px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.video-card video {
+  width: 100%;
+  height: 160px;
+  border-radius: 8px;
+  background: #000;
+}
+
+.video-card h4 {
+  margin-top: 8px;
+  font-size: 16px;
+  color: #38bdf8;
+  text-align: center;
+}
+
+.video-card p {
+  font-size: 13px;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.video-card button {
+  margin-top: 5px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #38bdf8;
+  color: #0f172a;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.video-card button:hover {
+  background: #0ea5e9;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1 style="color: aqua;">NET <span style="color: white;">CLASSE SYSTEM</span></h1>
+<p>Aprenda assistindo e baixe os PDFs.</p>
+</header>
+
+<div class="topics-menu">
+  <button onclick="loadTopic('tic')">TIC – Informática</button>
+  <button onclick="loadTopic('programacao')">Programação – Lógica</button>
+  <button onclick="loadTopic('redes')">Redes de Computadores</button>
+</div>
+
+<div class="content">
+<h2 id="title">Selecione um tópico</h2>
+<p id="description"></p>
+<div class="video-grid" id="videos">
+  <!-- 30 espaços enumerados para vídeos -->
+  <!-- Cada card contém: vídeo, título, descrição, botão download -->
+  <div class="video-card" id="video1"><h4>Espaço 1</h4><video  src="../01b18a45468d67cc8ff8ce6f063b6dfc_1764488699443.mp4" controls></video><p>Descrição...</p><button >Download PDF</button></div>
+  <div class="video-card" id="video2"><h4>Espaço 2</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video3"><h4>Espaço 3</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video4"><h4>Espaço 4</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video5"><h4>Espaço 5</h4><video controls></video><p>Descrição...</p><button >Download PDF</button></div>
+  <div class="video-card" id="video6"><h4>Espaço 6</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video7"><h4>Espaço 7</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video8"><h4>Espaço 8</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video9"><h4>Espaço 9</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video10"><h4>Espaço 10</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video11"><h4>Espaço 11</h4><video src="../01b18a45468d67cc8ff8ce6f063b6dfc_1764488699443.mp4" controls></video><p>Fala Manella...</p><a><button>Download PDF</button></div>
+  <div class="video-card" id="video12"><h4>Espaço 12</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video13"><h4>Espaço 13</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video14"><h4>Espaço 14</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video15"><h4>Espaço 15</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video16"><h4>Espaço 16</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video17"><h4>Espaço 17</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video18"><h4>Espaço 18</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video19"><h4>Espaço 19</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video20"><h4>Espaço 20</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video21"><h4>Espaço 21</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video22"><h4>Espaço 22</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video23"><h4>Espaço 23</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video24"><h4>Espaço 24</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video25"><h4>Espaço 25</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video26"><h4>Espaço 26</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video27"><h4>Espaço 27</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video28"><h4>Espaço 28</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video29"><h4>Espaço 29</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+  <div class="video-card" id="video30"><h4>Espaço 30</h4><video controls></video><p>Descrição...</p><button>Download PDF</button></div>
+</div>
+</div>
+
+<script>
+// Apenas atualiza título e descrição por área
+const topics = {
+  tic: { title: "TIC – Informática Básica", description: "Assista cada videa" },
+  programacao: { title: "Programação – Lógica", description: "Assista cada videa" },
+  redes: { title: "Redes de Computadores", description: "Assista cada videa" }
+};
+
+function loadTopic(key){
+  const topic = topics[key];
+  document.getElementById("title").innerText = topic.title;
+  document.getElementById("description").innerText = topic.description;
+
+  // Limpa todos os vídeos e PDFs
+  for(let i=1; i<=30; i++){
+    const div = document.getElementById(`video${i}`);
+    div.querySelector("video").src = "";
+    div.querySelector("p").innerText = "Descrição...";
+    div.querySelector("button").onclick = null;
+  }
+}
+</script>
+
+</body>
+</html>

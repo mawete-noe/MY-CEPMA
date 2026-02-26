@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOGAR</title>
+    <link rel="shortcut icon" href="logo my cepma/logo my cepma bp.png" type="image/x-icon">
+</head>
+<style>
+    /* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* Corpo */
+body {
+  background-color: #0f172a; /* fundo escuro tecnológico */
+  color: #f8fafc;           /* texto claro */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Cabeçalho */
+.header {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #38bdf8; /* azul vibrante */
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #94a3b8;
+}
+
+/* Container principal */
+.main-container {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+/* cor do logo*/
+.outracor{
+  color: antiquewhite;
+}
+
+/* Cada card */
+.card {
+  background-color: #1e293b; /* card escuro */
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+/* Hover nos cards */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Títulos dos cards */
+.card h2 {
+  font-size: 1.8rem;
+  color: #38bdf8;
+  margin-bottom: 1rem;
+}
+
+/* Descrição dos cards */
+.card p {
+  font-size: 1rem;
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+}
+
+/* Botões */
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #38bdf8;
+  color: #0f172a;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+  background-color: #0ea5e9;
+  transform: scale(1.05);
+}
+
+/* Footer definição do footer */
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #1e293b;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+/* Responsividade - tablet */
+@media (min-width: 768px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsividade - desktop */
+@media (min-width: 1024px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+    /* * Botão flutuante estilo Meta AI */ 
+    .fab {
+        position: fixed;
+        bottom: 65px;
+        right: 25px;
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #00f2fe, #4facfe);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        cursor: pointer;
+        box-shadow: 0 0 0 rgba(79,172,254, 0.7);
+        animation: pulse 2s infinite;
+        transition: transform 0.3s;
+        z-index: 999;
+    }
+
+    .fab:hover {
+        transform: scale(1.1);
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(79,172,254, 0.7);
+        }
+        70% {
+            box-shadow: 0 0 0 20px rgba(79,172,254, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(79,172,254, 0);
+        }
+    }
+
+</style>
+<body>
+  
+ 
+  <!-- Cabeçalho -->
+  <header class="header">
+    <h1>MY<span class="outracor">CEPMA</span></h1>
+    <p>Aprenda jogando os nossos InfoQuiz!</p>
+  </header>
+
+  <!-- Seção principal com opções -->
+  <main class="main-container">
+    <div class="cards">
+
+      <!-- Card Jogar -->
+      <div class="card">
+        <h2>🎮 Programação</h2>
+        <p>Teste seus conhecimentos na área de Programação!</p>
+        <a href="progQuiz..html" class="btn">Començar</a>
+      </div>
+
+      <!-- Card Aprender -->
+      <div class="card">
+        <h2>🎮 TIC</h2>
+        <p>Teste seus conhecimentos na área das TICs.</p>
+        <a href="ticQuiz.html" class="btn">Començar</a>
+      </div>
+
+      <!-- Card Ranking -->
+      <div class="card">
+        <h2>🎮 Redes De Computador</h2>
+        <p>Teste seus conhecimentos na área de Redes De Computador!</p>
+        <a href="redesQuiz.html" class="btn">Començar</a>
+      </div>
+
+    </div>
+  </main>
+
+  <a href="LumiIA.html"><button class="fab" >🤖</button></a>
+</body>
+</html>

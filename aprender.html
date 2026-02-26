@@ -1,0 +1,340 @@
+﻿<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="shortcut icon" href="logo my cepma/logo my cepma bp.png" type="image/x-icon">
+<title>My - CEPMA - Aprender</title>
+
+<style>
+:root{
+  --primary:#4f46e5;
+  --bg:#0f172a;
+  --card:#060911;
+  --text:aqua;
+  --inactive:#94a3b8;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  text-align: center;
+}
+
+header{
+  padding:20px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  background: #0c111d;
+  color:white;
+  letter-spacing:1px;
+}
+
+main{
+  padding:20px;
+  padding-bottom:90px;
+}
+
+.screen{
+  display:none;
+  animation:fade 0.4s ease;
+}
+
+.screen.active{
+  display:block;
+}
+
+h2{
+  margin-bottom:20px;
+  text-align:center;
+}
+
+.cards{
+  display:grid;
+  gap:20px;
+  grid-template-columns: 1fr;
+}
+
+.card{
+  background:var(--card);
+  padding:15px;
+  border-radius:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+}
+
+.card iframe,
+.card video{
+  width:100%;
+  border-radius:10px;
+}
+
+.card h3{
+  margin:10px 0;
+  font-size:16px;
+}
+
+.card button{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:var(--primary);
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.card button:hover{
+  opacity:0.85;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  display:flex;
+  background: gray;
+  box-shadow:0 -5px 15px rgba(0,0,0,0.08);
+}
+
+.bottom-nav button{
+  flex:1;
+  padding:15px;
+  border:none;
+  background:none;
+  font-weight:bold;
+  cursor:pointer;
+  color: darkslategray;
+  transition:0.3s;
+}
+
+.bottom-nav button.active{
+  color:var(--primary);
+  border-top:3px solid var(--primary);
+}
+
+.bottom-nav button:hover{
+  background:#eef2ff;
+}
+/* Responsividade - tablet */
+@media (min-width: 768px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsividade - desktop */
+@media (min-width: 1024px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <span style="color: aqua;">MY</span> - CEPMA
+  <p style="font-size: 16px;font-weight: 100; color: gray;">Aprende assistindo nossos videos educativos</p>
+</header>
+
+<main>
+
+<section id="tlp" class="screen active">
+  <h2>TÉCNICAS DE LINGUAGEM DE PROGRAMAÇÃO</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/A1BaZr82XJI?si=yPXWrlWqFIGwN29v" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>Aprenda a programar</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+
+    <div class="card">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/PmefpISZ7Ew?si=Vj5GmVazIrIQXnZu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>O que é linguagem de Programação</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+
+    <div class="card">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/dCVy_qNmpJA?si=TNwHFwWCOkxsC_Oa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>Hora de programar</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+
+    <div class="card">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/JaTf3dhx464?si=Ss7UEMe3EEOu50oe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>Lógica de programação</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+    <div class="card">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/mRryrODqQcw?si=fifJWiUDvFjpCRbm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>Aprenda Java</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+     <div class="card">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/S9uPNppGsGo?si=Xdhh4fVGEbRyP7bh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>Seja um programação</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+    
+  </div>
+</section>
+<!-- ================ REDES DE COMPUTAÇÃO -->
+<section id="redes" class="screen">
+  <h2>REDES DE COMPUTADORES</h2>
+  <div class="cards">
+    <div class="card">
+     <iframe width="560" height="315" src="https://www.youtube.com/embed/FOuM6Okju7U?si=IzB8fNJRhJwfZdfs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+      <h3>Aula prática de rede</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+    <div class="card">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/1csTmCZj-io?si=5nYYK4fhASM6Er6S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>Aula prática de rede</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+    <div class="card">
+          
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/q0S75nKpmcw?si=QPTNJy09Jckqdffd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>Aula prática de rede</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+    <div class="card">
+     <iframe width="560" height="315" src="https://www.youtube.com/embed/Ycc_gBKskrQ?si=GeTt4iHrL9QNPxcb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>Aula prática de rede</h3>
+      <button disabled>Download (Indisponível)</button>
+
+    </div>
+      <div class="card">
+          
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/q0S75nKpmcw?si=QPTNJy09Jckqdffd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>Aula prática de rede</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+       <div class="card">
+          
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/M_ICLwuP8NQ?si=0oGCISL-kcKXQ0w_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>Configuração básica usando cisco</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+    <div class="card">
+          
+       <iframe width="560" height="315" src="https://www.youtube.com/embed/ty0HMs48U1k?si=dR3HblcoDziwmFb5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <h3>Full Curse Cisco Packet Trace</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+       <div class="card">
+          
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/m8VQGIshqWg?si=rsBk-mluyLGCMh5z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <h3> Cisco Packet Trace</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+        <div class="card">
+          
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/34CNiSOf-5o?si=KzO2TtVaC7-1zDov" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <h3>Cisco Packet Trace</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+    
+    
+  </div>
+
+</section>
+
+<section id="tic" class="screen">
+  <h2>TECNOLOGIA DE INFORMAÇÃO E COMUNICAÇÃO</h2>
+  
+  <div class="cards">
+  <div class="card">
+            
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/bM915-HCoHE?si=BYTqvaA47i_hxVPJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <h3>Introdução ao estudos das TICs</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+
+    <div class="card">
+      
+<iframe width="560" height="315" src="https://www.youtube.com/embed/CVL-yRt02VU?si=bopFw9Yhfyagf8iI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <h3>Saiba mais sobre os estudos das TICs</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+    <div class="card">
+      
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UW9bkLxYz0M?si=N7AGGGOFKikYSCh1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h3>O que é Ti</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+    <div class="card">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/LO3f8vM7lQA?si=oSjTPo5m7L0nxJat" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <h3>Conceito básica sobre a  TI</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+    <div class="card">
+      
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wMaqp3CmQmY?si=gCHCCxSB2Ga_4p8d" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <h3>Saiba mais sobre TICs</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+    <div class="card">
+      
+<iframe width="560" height="315" src="https://www.youtube.com/embed/U_3X0RY4TWo?si=k-CTXHLB8xube7iw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <h3>Saiba mais sobre TICs</h3>
+      <button disabled>Download (Indisponível)</button>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<nav class="bottom-nav">
+  <button class="active" data-target="tlp">Programação</button>
+  <button data-target="redes">Redes</button>
+  <button data-target="tic">TIC</button>
+</nav>
+
+<script>
+const buttons = document.querySelectorAll(".bottom-nav button");
+const screens = document.querySelectorAll(".screen");
+
+buttons.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    buttons.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const target = btn.dataset.target;
+
+    screens.forEach(screen=>{
+      screen.classList.remove("active");
+      if(screen.id === target){
+        screen.classList.add("active");
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>

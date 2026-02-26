@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Lumi IA</title>
+
+<style>
+body { 
+  background: #0d1117;
+  color: #e5e7eb;
+  font-family: "Segoe UI", sans-serif; 
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+.chat { 
+  width: 95%;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #161b2a; 
+  border-radius: 20px; 
+  display:flex; 
+  flex-direction:column; 
+  height: 90vh;
+}
+h2 { 
+  text-align: center; 
+  color: #60a5fa;
+}
+#mensagens { 
+  flex:1; 
+  overflow-y:auto; 
+  padding:15px; 
+  border-radius:15px; 
+  background:#1f2937;
+  display:flex;
+  flex-direction:column;
+}
+.msg { 
+  margin-bottom:15px; 
+  padding:12px;
+  border-radius:12px; 
+  max-width:85%;
+}
+.user { 
+  background: rgba(56,189,248,0.1); 
+  align-self: flex-end; 
+  color:#38bdf8;
+}
+.bot { 
+  background: rgba(15,23,42,0.8);
+  align-self: flex-start; 
+  color:#a7f3d0;
+}
+.input-area { 
+  display:flex; 
+  gap:8px; 
+  margin-top:15px; 
+}
+input { 
+  flex:1; 
+  padding:10px; 
+  border:none; 
+  border-radius:10px; 
+  background:#1f2937;
+  color:white;
+}
+button { 
+  padding:10px 15px; 
+  border:none; 
+  border-radius:10px; 
+  background:#22c55e; 
+  color:white; 
+  cursor:pointer; 
+}
+button:hover { background:#16a34a; }
+
+img {
+  max-width:100%;
+  margin-top:10px;
+  border-radius:10px;
+}
+</style>
+</head>
+<body>
+
+<div class="chat">
+<h2>🤖 LumiIA</h2>
+<div id="mensagens"></div>
+
+<div class="input-area">
+<input id="pergunta" placeholder="Pergunte algo..." />
+<button onclick="enviar()">Enviar</button>
+</div>
+</div>
+
+<script>
+const mensagens = document.getElementById("mensagens");
+let usuario = localStorage.getItem("usuario") || "";
+
+if(!usuario){
+  usuario = prompt("Qual é o seu nome?");
+  if(!usuario) usuario="Você";
+  localStorage.setItem("usuario",usuario);
+}
+
+/* ===== Verificar conexão ===== */
+function verificarConexao(){
+  if(!navigator.onLine){
+    adicionar("bot","⚠️ Você está desconectado da internet.");
+    return false;
+  }
+  return true;
+}
+
+window.addEventListener("offline", ()=>{
+  adicionar("bot","⚠️ Conexão perdida.");
+});
+window.addEventListener("online", ()=>{
+  adicionar("bot","✅ Conexão restaurada.");
+});
+
+/* ===== Adicionar mensagem ===== */
+function adicionar(tipo, html){
+  const div=document.createElement("div");
+  div.className=`msg ${tipo}`;
+  div.innerHTML=html;
+  mensagens.appendChild(div);
+  mensagens.scrollTop=mensagens.scrollHeight;
+}
+
+/* ===== Falar em português ===== */
+function falar(texto){
+  if(!("speechSynthesis"in window)) return;
+  speechSynthesis.cancel();
+  const fala = new SpeechSynthesisUtterance(texto);
+  fala.lang="pt-BR";
+  speechSynthesis.speak(fala);
+}
+
+/* ===== Buscar texto na Wikipedia ===== */
+async function buscarTexto(termo){
+  try{
+    const url = `https://pt.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(termo)}`;
+    const res = await fetch(url);
+    if(!res.ok) throw "erro";
+    const data = await res.json();
+    return data.extract;
+  }catch{
+    return "Desculpe, não encontrei informações sobre isso.";
+  }
+}
+
+/* ===== Buscar imagem automática ===== */
+function buscarImagem(termo){
+  return `https://source.unsplash.com/600x400/?${encodeURIComponent(termo)}`;
+}
+
+/* ===== Responder ===== */
+async function responder(pergunta){
+
+  if(!verificarConexao()) return;
+
+  adicionar("bot","🔎 Pesquisando...");
+
+  const texto = await buscarTexto(pergunta);
+
+  let resposta = texto;
+
+  let imagemHTML = "";
+  if(pergunta.toLowerCase().includes("imagem") || pergunta.toLowerCase().includes("foto")){
+    const imgURL = buscarImagem(pergunta);
+    imagemHTML = `<img src="${imgURL}">`;
+  }
+
+  mensagens.lastChild.innerHTML = `
+    ${resposta}
+    ${imagemHTML}
+  `;
+
+  falar(resposta);
+}
+
+/* ===== Enviar ===== */
+async function enviar(){
+  const input=document.getElementById("pergunta");
+  const pergunta=input.value.trim();
+  if(!pergunta)return;
+
+  adicionar("user",pergunta);
+  input.value="";
+  await responder(pergunta);
+}
+</script>
+
+</body>
+</html>

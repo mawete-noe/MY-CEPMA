@@ -1,0 +1,94 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0f172a;
+  color: #f8fafc;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.header h1 {
+  color: #38bdf8;
+}
+
+.topics-menu {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.topics-menu button {
+  padding: 10px 15px;
+  background-color: #38bdf8;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.topics-menu button:hover {
+  background-color: #0ea5e9;
+}
+
+.topic-content {
+  background-color: #1e293b;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  border-radius: 10px;
+}
+
+.video-section iframe {
+  width: 100%;
+  height: 300px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.download-pdf {
+  display: inline-block;
+  margin: 10px 0;
+  padding: 8px 12px;
+  background-color: #38bdf8;
+  color: #000;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.download-pdf:hover {
+  background-color: #0ea5e9;
+}
+
+.recommendations ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.recommendations li {
+  margin: 5px 0;
+}
+
+.recommendations a {
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+.recommendations a:hover {
+  text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .video-section iframe {
+    height: 200px;
+  }
+}

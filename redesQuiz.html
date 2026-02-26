@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MYCEPMA - QUIZ</title>
+  <link rel="stylesheet" href="styles/quiz.css">
+  <link rel="shortcut icon" href="logo my cepma/logo my cepma bp.png" type="image/x-icon">
+</head>
+<body>
+
+  <header class="header">
+    <h1>InfoRank Quiz</h1>
+    <p>Aprender informática jogando</p>
+  </header>
+
+  <div class="progress-bar">
+    <div class="progress-bar-fill"></div>
+  </div>
+
+  <main class="quiz-container">
+
+    <div class="question-card">
+      <h2 class="question-text">Pergunta aqui</h2>
+    </div>
+
+    <div class="options-container"></div>
+
+    <div class="help-container">
+      <button id="help-50">❌ 50/50</button>
+      <button id="help-hint">💡 Dica</button>
+      <button id="help-time">⏱️ Tempo</button>
+    </div>
+
+    <div class="scoreboard">
+      <span>Pontos: <b id="score">0</b></span>
+      <span>Acertos: <b id="correct">0</b></span>
+      <span>Erros: <b id="wrong">0</b></span>
+    </div>
+
+  </main>
+
+  <div class="end-screen hidden" id="endScreen">
+    <div class="end-card">
+      <h2>🎉 Fim do Quiz!</h2>
+      <p>Pontuação final: <b id="finalScore">0</b></p>
+      <p>Acertos: <b id="finalCorrect">0</b></p>
+      <p>Erros: <b id="finalWrong">0</b></p>
+      <p>Percentual: <b id="finalPercent">0%</b></p>
+      <button id="restartBtn">🔄 Reiniciar Quiz</button>
+    </div>
+  </div>
+
+  <script src="js/redes.js"></script>
+</body>
+</html>

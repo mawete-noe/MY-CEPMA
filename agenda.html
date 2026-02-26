@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agendadento de actividades</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+  margin:0;
+  padding:0;
+}
+
+body{
+  background: #0f172a;
+  min-height:100vh;
+  padding:20px;
+  color:white;
+}
+
+h1{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.container{
+  max-width:600px;
+  margin:auto;
+}
+
+.form,.filters,.card{
+  background:white;
+  color:#333;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
+  margin-bottom:15px;
+}
+
+input,textarea,select,button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:15px;
+}
+
+textarea{ resize:none; }
+
+button{
+  background:#667eea;
+  color:white;
+  border:none;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+button:hover{
+  transform:scale(1.03);
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+.done-btn{ background:#48bb78; }
+.delete-btn{ background:#e53e3e; }
+
+.card.done{
+  opacity:0.6;
+  text-decoration:line-through;
+}
+
+.countdown{
+  margin-top:8px;
+  font-weight:bold;
+  color:#667eea;
+}
+
+.countdown.urgent{
+  color:red;
+}
+
+/* MODAL */
+.custom-alert{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  pointer-events:none;
+  transition:0.3s;
+}
+
+.custom-alert.show{
+  opacity:1;
+  pointer-events:all;
+}
+
+.alert-box{
+  background:white;
+  color:#333;
+  padding:30px;
+  border-radius:20px;
+  width:90%;
+  max-width:350px;
+  text-align:center;
+  animation:pop 0.3s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(0.7);}
+  to{transform:scale(1);}
+}
+
+.stop-btn{
+  background:#e53e3e;
+}
+
+/* RESPONSIVO */
+@media(max-width:480px){
+  .form,.filters,.card{
+    padding:15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<h1> 📅Agendamento de actividades </h1>
+
+<div class="container">
+
+<div class="form">
+  <input type="text" id="title" placeholder="Nome da tarefa">
+  <textarea id="description" placeholder="Descrição (opcional)"></textarea>
+  <input type="datetime-local" id="datetime">
+  <input type="file" id="sound" accept="audio/*">
+  <button onclick="addTask()">Agendar</button>
+</div>
+
+<div class="filters">
+  <input type="text" id="search" placeholder="🔍 Pesquisar..." oninput="renderTasks()">
+  <select id="filter" onchange="renderTasks()">
+    <option value="all">Todas</option>
+    <option value="pending">Pendentes</option>
+    <option value="done">Concluídas</option>
+  </select>
+</div>
+
+<div id="tasks"></div>
+</div>
+
+<!-- MODAL -->
+<div id="customAlert" class="custom-alert">
+  <div class="alert-box">
+    <h2 id="alertTitle"></h2>
+    <p id="alertDesc"></p>
+    <button onclick="closeAlert()">Fechar</button>
+    <button class="stop-btn" onclick="stopMusic()">🔇 Parar Música</button>
+  </div>
+</div>
+
+<script>
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let currentAudio = null;
+
+if ("Notification" in window) {
+  Notification.requestPermission();
+}
+
+function saveTasks(){
+  localStorage.setItem("tasks",JSON.stringify(tasks));
+}
+
+function addTask(){
+  const title=document.getElementById("title").value.trim();
+  const description=document.getElementById("description").value.trim();
+  const datetime=document.getElementById("datetime").value;
+  const soundInput=document.getElementById("sound");
+
+  if(!title || !datetime){
+    alert("Preenche nome e data!");
+    return;
+  }
+
+  let soundURL=null;
+  if(soundInput.files.length>0){
+    soundURL=URL.createObjectURL(soundInput.files[0]);
+  }
+
+  tasks.push({
+    id:Date.now(),
+    title,
+    description,
+    datetime,
+    sound:soundURL,
+    done:false,
+    notified:false
+  });
+
+  saveTasks();
+  renderTasks();
+
+  document.getElementById("title").value="";
+  document.getElementById("description").value="";
+  document.getElementById("datetime").value="";
+  document.getElementById("sound").value="";
+}
+
+function renderTasks(){
+  const container=document.getElementById("tasks");
+  const search=document.getElementById("search").value.toLowerCase();
+  const filter=document.getElementById("filter").value;
+
+  container.innerHTML="";
+
+  tasks
+  .filter(t=>t.title.toLowerCase().includes(search))
+  .filter(t=>filter==="all"||(filter==="done"?t.done:!t.done))
+  .forEach(task=>{
+    const card=document.createElement("div");
+    card.className="card"+(task.done?" done":"");
+
+    card.innerHTML=`
+      <h3>${task.title}</h3>
+      ${task.description?`<p>${task.description}</p>`:""}
+      <small>⏰ ${new Date(task.datetime).toLocaleString()}</small>
+      <div class="countdown" id="countdown-${task.id}"></div>
+      <div class="actions">
+        <button class="done-btn" onclick="toggleDone(${task.id})">✔</button>
+        <button class="delete-btn" onclick="deleteTask(${task.id})">🗑</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function updateCountdowns(){
+  const now=Date.now();
+
+  tasks.forEach(task=>{
+    const el=document.getElementById(`countdown-${task.id}`);
+    if(!el)return;
+
+    const diff=new Date(task.datetime).getTime()-now;
+
+    if(diff<=0){
+      el.innerText="⏰ Tempo esgotado!";
+      el.classList.add("urgent");
+
+      if(!task.notified){
+        task.notified=true;
+        saveTasks();
+
+        // 🔔 Notificação navegador
+        if(Notification.permission==="granted"){
+          new Notification(task.title,{
+            body:task.description||"A tarefa chegou ao fim!"
+          });
+        }
+
+        // 🎵 Música em loop
+        if(task.sound){
+          currentAudio=new Audio(task.sound);
+          currentAudio.loop=true;
+          currentAudio.play();
+        }
+
+        showAlert("⏰ "+task.title,
+        task.description||"A tarefa chegou ao fim!");
+      }
+      return;
+    }
+
+    const d=Math.floor(diff/(1000*60*60*24));
+    const h=Math.floor((diff/(1000*60*60))%24);
+    const m=Math.floor((diff/(1000*60))%60);
+    const s=Math.floor((diff/1000)%60);
+
+    el.innerText=`Faltam ${d}d ${h}h ${m}m ${s}s`;
+    if(diff<60000)el.classList.add("urgent");
+  });
+}
+
+function toggleDone(id){
+  const task=tasks.find(t=>t.id===id);
+  task.done=!task.done;
+  saveTasks();
+  renderTasks();
+}
+
+function deleteTask(id){
+  tasks=tasks.filter(t=>t.id!==id);
+  saveTasks();
+  renderTasks();
+}
+
+function showAlert(title,desc){
+  document.getElementById("alertTitle").innerText=title;
+  document.getElementById("alertDesc").innerText=desc;
+  document.getElementById("customAlert").classList.add("show");
+}
+
+function closeAlert(){
+  document.getElementById("customAlert").classList.remove("show");
+}
+
+function stopMusic(){
+  if(currentAudio){
+    currentAudio.pause();
+    currentAudio.currentTime=0;
+  }
+}
+
+setInterval(updateCountdowns,1000);
+renderTasks();
+</script>
+
+</body>
+</html>
