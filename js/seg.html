@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>InfoRank - ADM & Racking</title>
+  
+<!-- Ícones online -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     body {
@@ -125,22 +128,42 @@
     #painel {
       display: none;
     }
+    
+
+/* BOTÃO VOLTAR */
+.btn-voltar{
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: #111827;
+  color: aqua;
+  padding: 10px 15px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.btn-voltar:hover{
+  background: aqua;
+  color: #0f172a;
+  transform: translateY(-2px);
+}
+
   </style>
 </head>
 
 <body>
-  <!-- Botão de Voltar -->
-  <div style="text-align:center; margin-bottom:20px;">
-    <button onclick="window.history.back()" style="
-      padding:10px 15px;
-      border-radius:8px;
-      border:none;
-      background-color:#22c55e;
-      color:white;
-      font-weight:bold;
-      cursor:pointer;
-    ">⬅ Voltar</button>
-  </div>
+<!-- BOTÃO VOLTAR -->
+<a href="../index.html" class="btn-voltar">
+  <i class="fas fa-arrow-left"></i>
+  
+</a>
   <!-- LOGIN -->
   <div class="login-container" id="login">
     <h2>Login ADM</h2>

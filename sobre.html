@@ -6,6 +6,9 @@
   <title>Sobre Nós | My CEPMA</title>
   
 <link rel="shortcut icon" href="logo my cepma/logo my cepma bp.png" type="image/x-icon">
+
+<!-- Ícones online -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <style>
@@ -187,24 +190,42 @@ body{
   h2{ font-size:1.6rem; }
 }
 
+/* BOTÃO VOLTAR MODERNO */
+.btn-voltar{
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #1e293b;
+  color: #38bdf8;
+  padding: 10px 16px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.btn-voltar:hover{
+  background: #38bdf8;
+  color: #0f172a;
+  transform: translateY(-3px);
+}
+
+
 
 </style>
 <body>
 
 
-  <!-- Botão de Voltar -->
-  <div style="text-align:center; margin-bottom:20px;">
-    <button onclick="window.history.back()" style="
-      padding:10px 15px;
-      border-radius:8px;
-      border:none;
-      margin-left: 5px;
-      background-color:#22c55e;
-      color:white;
-      font-weight:bold;
-      cursor:pointer;
-    ">⬅ Voltar</button>
-
+  <!-- BOTÃO VOLTAR -->
+  <a href="index.html" class="btn-voltar">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+  
 <!-- ================= ABOUT ================= -->
 
 

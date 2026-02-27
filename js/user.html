@@ -6,6 +6,8 @@
 <title>InfoRank - Racking Escolar</title>
 <link rel="shortcut icon" href="logo my cepma/logo my cepma bp.png" type="image/x-icon">
 
+<!-- Ícones online -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -62,11 +64,40 @@ h1 {
     align-items: center;
   }
 }
+
+/* BOTÃO VOLTAR */
+.btn-voltar{
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: #111827;
+  color: aqua;
+  padding: 10px 15px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.btn-voltar:hover{
+  background: aqua;
+  color: #0f172a;
+  transform: translateY(-2px);
+}
+
 </style>
 </head>
 
 <body>
-
+<!-- BOTÃO VOLTAR -->
+<a href="../index.html" class="btn-voltar">
+  <i class="fas fa-arrow-left"></i>
+</a>
 <h1>Racking Escolar - Usuários</h1>
 
 <div class="turmas-container" id="turmas-container"></div>
